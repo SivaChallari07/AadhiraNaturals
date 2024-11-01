@@ -108,41 +108,30 @@ document.addEventListener("keydown", (event) => {
 });
 
 
-document.getElementById('contactForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the form from submitting normally
+document.getElementById("contactForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent the default form submission
 
-        const formData = new FormData(this);
-        const data = Object.fromEntries(formData.entries());
+    // Get form values
+    const name = document.getElementById("name").value;
+    const phone = document.getElementById("phone").value;
+    const email = document.getElementById("email").value;
+    const subject = document.getElementById("subject").value;
+    const message = document.getElementById("message").value;
 
-        fetch('/api/contact/sendEmail', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => {
-            if (response.ok) {
-                document.getElementById('successMessage').style.display = 'block';
-                document.getElementById('contactForm').reset();
-            } else {
-                throw new Error('Failed to send message.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Failed to send message. Please try again later.');
-        });
+    // Send email using EmailJS
+    emailjs.send("service_1rca8g3", "template_qluc7gs", {
+        name: name,
+        phone: phone,
+        email: email,
+        subject: subject,
+        message: message
+    })
+    .then(function(response) {
+        console.log("SUCCESS!", response.status, response.text);
+        document.getElementById("successMessage").style.display = "block";
+        document.getElementById("contactForm").reset();
+    }, function(error) {
+        console.log("FAILED...", error);
+        alert("Failed to send message. Please try again.");
     });
-	window.addEventListener("load", function() {
-	    setTimeout(() => {
-	        const galleryGrid = document.querySelector(".gallery-grid");
-	        if (galleryGrid) {
-	            galleryGrid.classList.add("loaded"); // Show gallery with fade-in
-	        }
-	    }, 1000); // Delay of 1 second
-	});
-
-	
-
-
+});
