@@ -108,13 +108,13 @@ document.addEventListener("keydown", (event) => {
 });
 
 
-const btn = document.getElementById('subject'); // Modify button reference to avoid conflict
+const submitButton = document.getElementById('submitButton');
 
 document.getElementById('contactForm')
  .addEventListener('submit', function(event) {
    event.preventDefault();
 
-   btn.value = 'Sending...';
+   submitButton.value = 'Sending...';
 
    const serviceID = 'default_service';
    const templateID = 'template_qluc7gs';
@@ -122,7 +122,7 @@ document.getElementById('contactForm')
    emailjs.sendForm(serviceID, templateID, this)
     .then(() => {
       // Reset the button text
-      btn.value = 'Send Email';
+      submitButton.value = 'Send Message';
       
       // Show the success message
       document.getElementById('successMessage').style.display = 'block';
@@ -135,7 +135,9 @@ document.getElementById('contactForm')
         document.getElementById('successMessage').style.display = 'none';
       }, 5000); // 5 seconds
     }, (err) => {
-      btn.value = 'Send Email';
+      submitButton.value = 'Send Message';
       alert('Failed to send message. Please try again.');
     });
 });
+
+	
