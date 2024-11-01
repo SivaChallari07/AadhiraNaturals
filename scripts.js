@@ -108,30 +108,24 @@ document.addEventListener("keydown", (event) => {
 });
 
 
-document.getElementById("contactForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent the default form submission
+const btn = document.getElementById('subject');
 
-    // Get form values
-    const name = document.getElementById("name").value;
-    const phone = document.getElementById("phone").value;
-    const email = document.getElementById("email").value;
-    const subject = document.getElementById("subject").value;
-    const message = document.getElementById("message").value;
+document.getElementById('contactForm')
+ .addEventListener('submit', function(event) {
+   event.preventDefault();
 
-    // Send email using EmailJS
-    emailjs.send("service_1rca8g3", "template_qluc7gs", {
-        name: name,
-        phone: phone,
-        email: email,
-        subject: subject,
-        message: message
-    })
-    .then(function(response) {
-        console.log("SUCCESS!", response.status, response.text);
-        document.getElementById("successMessage").style.display = "block";
-        document.getElementById("contactForm").reset();
-    }, function(error) {
-        console.log("FAILED...", error);
-        alert("Failed to send message. Please try again.");
+   btn.value = 'Sending...';
+
+   const serviceID = 'default_service';
+   const templateID = 'template_qluc7gs';
+
+   emailjs.sendForm(serviceID, templateID, this)
+    .then(() => {
+      btn.value = 'Send Email';
+      alert('Sent!');
+    }, (err) => {
+      btn.value = 'Send Email';
+      alert(JSON.stringify(err));
     });
 });
+	
