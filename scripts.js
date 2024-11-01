@@ -107,7 +107,6 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
-
 const submitButton = document.getElementById('submitButton');
 
 document.getElementById('contactForm')
@@ -139,5 +138,4 @@ document.getElementById('contactForm')
       alert('Failed to send message. Please try again.');
     });
 });
-
 	
