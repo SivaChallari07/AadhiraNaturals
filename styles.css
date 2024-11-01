@@ -910,7 +910,7 @@ footer {
 
 /* Responsive map */
 @media (max-width: 768px) {
-    .map-container iframe {
+    .contact-us iframe {
         width: 100%; /* Make the map full width on smaller screens */
         height: 200px; /* Adjust height */
     }
