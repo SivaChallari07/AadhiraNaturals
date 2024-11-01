@@ -108,7 +108,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 
-const btn = document.getElementById('subject');
+const btn = document.getElementById('subject'); // Modify button reference to avoid conflict
 
 document.getElementById('contactForm')
  .addEventListener('submit', function(event) {
@@ -121,11 +121,21 @@ document.getElementById('contactForm')
 
    emailjs.sendForm(serviceID, templateID, this)
     .then(() => {
+      // Reset the button text
       btn.value = 'Send Email';
-      alert('Sent!');
+      
+      // Show the success message
+      document.getElementById('successMessage').style.display = 'block';
+      
+      // Clear the form fields
+      this.reset();
+
+      // Hide the success message after a few seconds (optional)
+      setTimeout(() => {
+        document.getElementById('successMessage').style.display = 'none';
+      }, 5000); // 5 seconds
     }, (err) => {
       btn.value = 'Send Email';
-      alert(JSON.stringify(err));
+      alert('Failed to send message. Please try again.');
     });
 });
-	
